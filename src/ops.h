@@ -10,27 +10,6 @@
 
 namespace mardev::mc24xx256
 {
-    /** @private
-     * Form the control byte for a read operation.
-     *
-     * \param cs Chip select address (3 least significant bits only).
-     */
-    inline uint8_t __gen_control_byte_read(const uint8_t cs)
-    {
-        return 0b10100001 | (cs & 0b1110);
-    }
-
-    /** @private
-     *
-     * Form the control byte for a write operation.
-     *
-     * \param cs Chip select address (3 least significant bits only).
-     */
-    inline uint8_t __gen_control_byte_write(const uint8_t cs)
-    {
-        return 0b10100000 | (cs & 0b1110);
-    }
-
     /** Start a read operation.
      *
      * Perform prerequisite communication to a read operation.
