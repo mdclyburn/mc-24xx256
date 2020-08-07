@@ -27,25 +27,43 @@ namespace mardev::mc24xx256
         return 0b10100000 | (cs & 0b1110);
     }
 
-    void begin_read(const uint8_t chip_select,
+    bool begin_read(const uint8_t chip_select,
                     const uint16_t address)
     {
+        i2c::set_periph_address(__gen_control_byte_read(chip_select));
+        return i2c::read_begin();
     }
 
-    void begin_write(const uint8_t chip_select,
+    bool begin_write(const uint8_t chip_select,
                      const uint16_t address)
     {
+        i2c::set_periph_address(__gen_control_byte_write(chip_select));
+        return i2c::write_begin();
     }
 
     void read(const uint8_t count,
-              uint8_t* const buffer,
-              const uint8_t chip_select)
+              uint8_t* const buffer)
     {
+        for(uint8_t i = 0; i < count; i++)
+        {
+            buffer[i] = i2c::read();
+        }
+
+        i2c::read_end();
+
+        return;
     }
 
     void write(const uint8_t count,
-               const uint8_t* const buffer,
-               const uint8_t chip_select)
+               const uint8_t* const buffer)
     {
+        for(uint8_t i = 0; i < count; i++)
+        {
+            i2c::write(buffer[i]);
+        }
+
+        i2c::write_end();
+
+        return;
     }
 }

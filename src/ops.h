@@ -17,8 +17,10 @@ namespace mardev::mc24xx256
      *
      * \param chip_select Chip select address (3 least significant bits).
      * \param address 15-bit address to start the read at (MSB is ignored).
+     *
+     * \returns True if the peripheral is ready.
      */
-    void begin_read(const uint8_t chip_select,
+    bool begin_read(const uint8_t chip_select,
                     const uint16_t address);
 
     /** Start a write operation.
@@ -29,7 +31,7 @@ namespace mardev::mc24xx256
      * \param chip_select Chip select address (3 least significant bits).
      * \param address 15-bit address to start the write at (MSB is ignored).
      */
-    void begin_write(const uint8_t chip_select,
+    bool begin_write(const uint8_t chip_select,
                      const uint16_t address);
 
     /** Read from the 24XX256.
@@ -39,11 +41,9 @@ namespace mardev::mc24xx256
      *
      * \param count Number of bytes to read (up to 64).
      * \param buffer Buffer to store read bytes in.
-     * \param chip_select Chip select address (3 least significant bits).
      */
     void read(const uint8_t count,
-              uint8_t* const buffer,
-              const uint8_t chip_select);
+              uint8_t* const buffer);
 
 
     /** Write to the 24XX256.
@@ -53,11 +53,9 @@ namespace mardev::mc24xx256
      *
      * \param count Number of bytes to write (up to 64).
      * \param buffer Data to write to memory.
-     * \param chip_select Chip select address (3 least significant bits).
      */
     void write(const uint8_t count,
-               const uint8_t* const buffer,
-               const uint8_t chip_select);
+               const uint8_t* const buffer);
 }
 
 #endif
