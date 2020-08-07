@@ -31,14 +31,20 @@ namespace mardev::mc24xx256
                     const uint16_t address)
     {
         i2c::set_periph_address(__gen_control_byte_read(chip_select));
-        return i2c::read_begin();
+        if(!i2c::read_begin()) return false;
+        i2c::write(address);
+
+        return true;
     }
 
     bool begin_write(const uint8_t chip_select,
                      const uint16_t address)
     {
         i2c::set_periph_address(__gen_control_byte_write(chip_select));
-        return i2c::write_begin();
+        if(!i2c::write_begin()) return false;
+        i2c::write(address);
+
+        return true;
     }
 
     void read(const uint8_t count,
